@@ -15,5 +15,6 @@ used in the SAOPICC collaboration
    :caption: Contents:
 
    introduction
+   minutes
    changelog
 

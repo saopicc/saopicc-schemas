@@ -1,6 +1,4 @@
 Introduction
 ============
 
-This section should provide a general outline of SAOPICC data schemas.
-
-This is a test.
+This section should provide a general outline of SAOPICC data schemas

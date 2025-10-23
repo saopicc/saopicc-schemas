@@ -7,18 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'saopicc-schemas'
-copyright = '2025, Simon Perkins'
+copyright = '2025, SARAO and Observatoire de Paris'
 author = 'Simon Perkins'
-
-# -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
-extensions = []
-
-templates_path = ['_templates']
-exclude_patterns = []
-
-
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -68,8 +58,8 @@ html_sidebars = {
 html_static_path = ["_static"]
 
 extlinks = {
-  "issue": ("https://github.com/ratt-ru/xarray-ms/issues/%s", "GH%s"),
-  "pr": ("https://github.com/ratt-ru/xarray-ms/pull/%s", "PR%s"),
+  "issue": ("https://github.com/saopicc/saopicc-schemas/issues/%s", "GH%s"),
+  "pr": ("https://github.com/saopicc/saopicc-schemas/pull/%s", "PR%s"),
 }
 
 # Example configuration for intersphinx: refer to the Python standard library.

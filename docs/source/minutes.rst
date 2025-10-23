@@ -6,7 +6,7 @@ Meeting Minutes
 21-10-2025
 ----------
 
-**Topic:** formats to be used within ECLAT
+**Topic:** Formats to be used within ECLAT/SARAO sofware
 
 **Attendees:**
 

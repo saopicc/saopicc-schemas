@@ -7,9 +7,13 @@
 SAOPICC Schemas
 ===============
 
+This repository contains xarray schemas for radio astronomy formats
+used in the SAOPICC collaboration
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   introduction
    changelog
 

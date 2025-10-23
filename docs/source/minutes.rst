@@ -9,7 +9,7 @@ Meeting Minutes
 **Topic:** formats to be used within ECLAT
 **Attendees:**
 
-- Etienne Bonnasioux (ECLAT, Observatoire de Paris)
+- Etienne Bonnassieux (ECLAT, Observatoire de Paris)
 - Cyril Tasse (ECLAT, Observatoire de Paris)
 - Jon Kenyon (SARAO)
 - Landman Bester (SARAO)

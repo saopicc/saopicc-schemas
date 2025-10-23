@@ -7,6 +7,7 @@ Meeting Minutes
 ----------
 
 **Topic:** formats to be used within ECLAT
+
 **Attendees:**
 
 - Etienne Bonnassieux (ECLAT, Observatoire de Paris)

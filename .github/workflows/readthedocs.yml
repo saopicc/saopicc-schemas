@@ -2,13 +2,11 @@
 
 name: readthedocs/actions
 on:
-  pull_request_target:
-    types:
-      - opened
-    # Execute this action only on PRs that touch
-    # documentation files.
-    # paths:
-    #   - "doc/**"
+  push:
+    branches-ignore:
+      - 'main'
+    tags-ignore:
+      - '*'
 
 permissions:
   pull-requests: write

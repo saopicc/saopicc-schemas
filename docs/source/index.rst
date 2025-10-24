@@ -17,4 +17,3 @@ used in the SAOPICC collaboration
    introduction
    minutes
    changelog
-

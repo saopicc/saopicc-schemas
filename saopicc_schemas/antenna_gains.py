@@ -38,7 +38,7 @@ class AntennaGains(AsDataset):
   GAIN_SPEC: Attr[List[List[int]]]
   NAME: Attr[str]
   TYPE: Attr[str]
-  # comments field
-  comment: Coord[Comments, str]
+  # comments field, empty by default
+  comment: Attr[str] = ""
   # Version of the schema
   VERSION: Attr[str] = "0.0.1.1"

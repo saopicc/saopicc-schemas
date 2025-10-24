@@ -85,7 +85,7 @@ def test_gains_creation():
     GAIN_AXES=["direction", "antenna", "gain_time", "gain_freq", "correlation"],
     GAIN_SPEC=[[16], [28], [3600], [64], [4]],
     NAME="G",
-    VERSION="0.0.1.1",
+    VERSION="0.0.1",
     TYPE="complex",
     comment="NenuFAR prototype gain",
   )

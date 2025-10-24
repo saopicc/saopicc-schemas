@@ -16,15 +16,9 @@ def test_gains_creation():
   nfreq = len(freqs)
   nant = len(antenna)
   ndir = len(direction)
-  #  conv_iter = np.full((4, 4), 4)
-  #  conv_perc = np.full((4, 4), 5)
   gain_flags = np.random.choice([0, 1], (ndir, nant, ntime, nfreq))
 
   gains = AntennaGains.new(
-    #    conv_iter=conv_iter,
-    #    conv_perc=conv_perc,
-    #    time_chunk=np.arange(conv_iter.shape[0]),
-    #    freq_chunk=np.arange(conv_iter.shape[1]),
     gain_flags=gain_flags,
     antenna=antenna,
     correlation=corrs,

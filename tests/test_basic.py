@@ -1,14 +1,13 @@
-from dataclasses import asdict
-
 import numpy as np
 import numpy.testing as npt
 import xarray
 
-from saopicc_schemas import Gains, GainTimeAxis
+from saopicc_schemas import Gains
+
 
 def test_gains_creation():
   time = np.linspace(1.0, 2.0, 10)
-  freqs = np.linspace(.856e9, 2 * .856e9, 16)
+  freqs = np.linspace(0.856e9, 2 * 0.856e9, 16)
   antenna = np.arange(28).astype(str)
   direction = np.arange(1)
   corrs = np.array(["RR", "RL", "LR", "LL"])
@@ -16,8 +15,8 @@ def test_gains_creation():
   nfreq = len(freqs)
   nant = len(antenna)
   ndir = len(direction)
-  conv_iter=np.full((4, 4), 4)
-  conv_perc=np.full((4, 4), 5)
+  conv_iter = np.full((4, 4), 4)
+  conv_perc = np.full((4, 4), 5)
   gain_flags = np.random.choice([0, 1], (ntime, nfreq, nant, ndir))
 
   gains = Gains.new(
@@ -29,16 +28,19 @@ def test_gains_creation():
     antenna=antenna,
     correlation=corrs,
     direction=direction,
-    gain_time=xarray.DataArray(time, attrs={
-      "type": "time",
-      "units": "s",
-      "format": "unix",
-      "scale": "utc",
-      "integration_time": {
-        "attrs": {"type": "quantity", "units": "s"},
-        "data": 8.0,
-      }
-    }),
+    gain_time=xarray.DataArray(
+      time,
+      attrs={
+        "type": "time",
+        "units": "s",
+        "format": "unix",
+        "scale": "utc",
+        "integration_time": {
+          "attrs": {"type": "quantity", "units": "s"},
+          "data": 8.0,
+        },
+      },
+    ),
     gain_freq=freqs,
     GAIN_AXES=["gain_time", "gain_freq", "antenna", "direction", "correlation"],
     GAIN_SPEC=[[115], [64], [28], [1], [4]],
@@ -62,8 +64,4 @@ def test_gains_creation():
   assert gains.attrs["NAME"] == "G"
   assert "VERSION" in gains.attrs
 
-  # TODO(sjperkins)
-  # This seems to be the only way to correctly
-  # set the integration time attribute
-  gains.gain_time.attrs["integration_time"] = asdict(GainTimeAxis(8.0))
   print(gains)

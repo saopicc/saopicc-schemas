@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'saopicc-schemas'
-copyright = '2025, SARAO and Observatoire de Paris'
-author = 'Simon Perkins'
+project = "saopicc-schemas"
+copyright = "2025, SARAO and Observatoire de Paris"
+author = "Simon Perkins"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -50,11 +50,6 @@ napoleon_attr_annotations = True
 
 html_theme = "pydata_sphinx_theme"
 
-# Disable navigation sidebars
-# https://github.com/pydata/pydata-sphinx-theme/issues/1662
-html_sidebars = {
-  "**": [],
-}
 html_static_path = ["_static"]
 
 extlinks = {

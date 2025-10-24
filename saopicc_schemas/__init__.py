@@ -1,8 +1,8 @@
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from typing import Any, Dict, List, Literal
+
 import numpy as np
-from xarray_dataclasses import AsDataset
-from xarray_dataclasses import Attr, Coord, Data, Name, Dataof, Coordof
+from xarray_dataclasses import AsDataset, Attr, Coord, Coordof, Data, Dataof, Name
 
 #
 Singleton = tuple[()]
@@ -15,6 +15,7 @@ GainTime = Literal["gain_time"]
 GainFreq = Literal["gain_freq"]
 TimeChunk = Literal["time_chunk"]
 FreqChunk = Literal["freq_chunk"]
+
 
 @dataclass
 class IntegrationTimeAttr:
@@ -30,6 +31,7 @@ class GainTimeAxis:
   """Define the gain_time coordinate.
   This structure matches the MSv4 time coordinate axis
   by included astropy time scale attributes"""
+
   data: Data[GainTime, np.float64]
   # This matches the MSv4 "integration_time" attribute
   # but it may be superfluous and could be removed

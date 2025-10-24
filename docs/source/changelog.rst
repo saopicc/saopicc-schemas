@@ -6,6 +6,7 @@ Changelog
 
 X.Y.Z (DD-MM-YYYY)
 ------------------
+* Add killMS type gains description (:pr:`9`)
 * Add github actions (:pr:`8`)
 * Add github issue and pr templates (:pr:`8`)
 * Add pre-commit hooks (:pr:`8`)

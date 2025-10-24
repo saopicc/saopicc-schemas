@@ -1,10 +1,8 @@
-from dataclasses import asdict
-
 import numpy as np
 import numpy.testing as npt
 import xarray
 
-from saopicc_schemas import Gains, GainTimeAxis
+from saopicc_schemas import Gains
 
 
 def test_gains_creation():
@@ -66,8 +64,4 @@ def test_gains_creation():
   assert gains.attrs["NAME"] == "G"
   assert "VERSION" in gains.attrs
 
-  # TODO(sjperkins)
-  # This seems to be the only way to correctly
-  # set the integration time attribute
-  gains.gain_time.attrs["integration_time"] = asdict(GainTimeAxis(8.0))
   print(gains)

@@ -39,6 +39,6 @@ class AntennaGains(AsDataset):
   NAME: Attr[str]
   TYPE: Attr[str]
   # comments field
-  comments: Coord[Comments, str]
+  comment: Coord[Comments, str]
   # Version of the schema
   VERSION: Attr[str] = "0.0.1.1"

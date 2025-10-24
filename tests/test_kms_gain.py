@@ -1,7 +1,7 @@
 import numpy as np
 import xarray
 
-from saopicc_schemas import AntennaGains
+from saopicc_schemas.antenna_gains import AntennaGains
 
 
 def test_gains_creation():

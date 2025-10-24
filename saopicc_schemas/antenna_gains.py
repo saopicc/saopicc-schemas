@@ -27,7 +27,7 @@ class AntennaGains(AsDataset):
   # Data Variables
   #  conv_iter: Data[tuple[TimeChunk, FreqChunk], np.int64]
   #  conv_perc: Data[tuple[TimeChunk, FreqChunk], np.float64]
-  gain_flags: Data[tuple[GainTime, GainFreq, Antenna, Direction], np.int8]
+  gain_flags: Data[tuple[Direction, Antenna, GainTime, GainFreq], np.int8]
 
   # Coordinates
   antenna: Coord[Antenna, str]

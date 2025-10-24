@@ -20,13 +20,16 @@ def test_gains_creation():
   direction = np.arange(16)
   # nenufar, ska-low etc have linear dipoles
   corrs = np.array(["XX", "XY", "YX", "YY"])
+  ncorrs = len(corrs)
   ntime = len(time)
   nfreq = len(freqs)
   nant = len(antenna)
   ndir = len(direction)
   gain_flags = np.random.choice([0, 1], (ndir, nant, ntime, nfreq))
+  gains = np.ones((ndir, nant, ntime, nfreq, ncorrs))
 
   gains = AntennaGains.new(
+    gains=gains,
     gain_flags=gain_flags,
     antenna=antenna,
     correlation=corrs,

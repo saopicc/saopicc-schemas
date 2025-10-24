@@ -41,4 +41,4 @@ class AntennaGains(AsDataset):
   # comments field, empty by default
   comment: Attr[str] = ""
   # Version of the schema
-  VERSION: Attr[str] = "0.0.1.1"
+  VERSION: Attr[str] = "0.0.1"

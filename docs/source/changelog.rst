@@ -7,6 +7,7 @@ Changelog
 X.Y.Z (DD-MM-YYYY)
 ------------------
 * Depend on xradio for xarray dataclass functionality (:pr:`13`)
+* Configure ruff pre-commit to automatically fix issues, rather than report them (:pr:`14`)
 * Add killMS type gains description (:pr:`9`)
 * Add github actions (:pr:`8`)
 * Add github issue and pr templates (:pr:`8`)

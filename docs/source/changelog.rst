@@ -6,6 +6,7 @@ Changelog
 
 X.Y.Z (DD-MM-YYYY)
 ------------------
+* Configure ruff pre-commit to automatically fix issues, rather than report them (:pr:`14`)
 * Add killMS type gains description (:pr:`9`)
 * Add github actions (:pr:`8`)
 * Add github issue and pr templates (:pr:`8`)

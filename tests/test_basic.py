@@ -17,8 +17,8 @@ def test_gains_creation():
   nant = len(antenna)
   ndir = len(direction)
   conv_iter = np.full((4, 4), 4)
-  conv_perc = np.full((4, 4), 5)
-  gain_flags = np.random.choice([0, 1], (ntime, nfreq, nant, ndir))
+  conv_perc = np.full((4, 4), 5.0)
+  gain_flags = np.random.choice([0, 1], (ntime, nfreq, nant, ndir)).astype(np.int8)
 
   gains = xarray.Dataset(
     data_vars={

@@ -51,7 +51,7 @@ class Gains:
 
   # Attributes
   GAIN_AXES: Attr[List[str]]
-  GAIN_SPEC: Attr[List[List[int]]]
+
   NAME: Attr[str]
   TYPE: Attr[str]
 

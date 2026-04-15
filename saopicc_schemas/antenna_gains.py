@@ -121,7 +121,6 @@ class AntennaGains:
   gain_nu1: Coordof[GainNu1Axis]
   # Attributes
   GAIN_AXES: Attr[List[str]]
-  GAIN_SPEC: Attr[List[List[int]]]
   NAME: Attr[str]
   TYPE: Attr[str]
   # comments field, empty by default

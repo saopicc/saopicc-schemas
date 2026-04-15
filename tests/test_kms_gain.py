@@ -26,8 +26,8 @@ def test_gains_creation():
   nfreq = len(freqs)
   nant = len(antenna)
   ndir = len(direction)
-  gain_flags = np.random.choice([0, 1], (ndir, nant, ntime, nfreq))
-  gains_data = np.ones((ndir, nant, ntime, nfreq, ncorrs))
+  gain_flags = np.random.choice([0, 1], (ndir, nant, ntime, nfreq)).astype(np.int8)
+  gains_data = np.ones((ndir, nant, ntime, nfreq, ncorrs)).astype(np.complex64)
 
   gains = xarray.Dataset(
     data_vars={
@@ -111,3 +111,4 @@ def test_gains_creation():
   )
 
   issues = check_dataset(gains, AntennaGains)
+  assert not issues

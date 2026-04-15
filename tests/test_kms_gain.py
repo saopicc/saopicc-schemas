@@ -1,5 +1,6 @@
 import numpy as np
 import xarray
+from xradio.schema.check import check_dataset
 
 from saopicc_schemas.antenna_gains import AntennaGains
 
@@ -26,70 +27,87 @@ def test_gains_creation():
   nant = len(antenna)
   ndir = len(direction)
   gain_flags = np.random.choice([0, 1], (ndir, nant, ntime, nfreq))
-  gains = np.ones((ndir, nant, ntime, nfreq, ncorrs))
+  gains_data = np.ones((ndir, nant, ntime, nfreq, ncorrs))
 
-  gains = AntennaGains.new(
-    gains=gains,
-    gain_flags=gain_flags,
-    antenna=antenna,
-    correlation=corrs,
-    direction=direction,
-    gain_time=xarray.DataArray(
-      time,
-      attrs={
-        "type": "time",
-        "units": "s",
-        "format": "unix",
-        "scale": "utc",
-      },
-    ),
-    gain_t0=xarray.DataArray(
-      t0,
-      attrs={
-        "type": "time",
-        "units": "s",
-        "format": "unix",
-        "scale": "utc",
-      },
-    ),
-    gain_t1=xarray.DataArray(
-      t1,
-      attrs={
-        "type": "time",
-        "units": "s",
-        "format": "unix",
-        "scale": "utc",
-      },
-    ),
-    gain_freq=xarray.DataArray(
-      freqs,
-      attrs={
-        "type": "spectral_coord",
-        "units": "Hz",
-        "observer": "gcrs",
-      },
-    ),
-    gain_nu0=xarray.DataArray(
-      nu0,
-      attrs={
-        "type": "spectral_coord",
-        "units": "Hz",
-        "observer": "gcrs",
-      },
-    ),
-    gain_nu1=xarray.DataArray(
-      nu1,
-      attrs={
-        "type": "spectral_coord",
-        "units": "Hz",
-        "observer": "gcrs",
-      },
-    ),
-    GAIN_AXES=["direction", "antenna", "gain_time", "gain_freq", "correlation"],
-    GAIN_SPEC=[[16], [28], [3600], [64], [4]],
-    NAME="G",
-    VERSION="0.0.1",
-    TYPE="complex",
-    comment="NenuFAR prototype gain",
+  gains = xarray.Dataset(
+    data_vars={
+      "gain_flags": (["direction", "antenna", "gain_time", "gain_freq"], gain_flags),
+      "gains": (
+        ["direction", "antenna", "gain_time", "gain_freq", "jones"],
+        gains_data,
+      ),
+    },
+    coords={
+      "antenna": ("antenna", antenna),
+      "jones": ("jones", np.arange(ncorrs)),
+      "correlation": ("correlation", corrs),
+      "direction": ("direction", direction),
+      "gain_time": xarray.DataArray(
+        time,
+        dims=["gain_time"],
+        attrs={
+          "type": "time",
+          "units": "s",
+          "format": "unix",
+          "scale": "utc",
+        },
+      ),
+      "gain_t0": xarray.DataArray(
+        t0,
+        dims=["gain_time"],
+        attrs={
+          "type": "time",
+          "units": "s",
+          "format": "unix",
+          "scale": "utc",
+        },
+      ),
+      "gain_t1": xarray.DataArray(
+        t1,
+        dims=["gain_time"],
+        attrs={
+          "type": "time",
+          "units": "s",
+          "format": "unix",
+          "scale": "utc",
+        },
+      ),
+      "gain_freq": xarray.DataArray(
+        freqs,
+        dims=["gain_freq"],
+        attrs={
+          "type": "spectral_coord",
+          "units": "Hz",
+          "observer": "gcrs",
+        },
+      ),
+      "gain_nu0": xarray.DataArray(
+        nu0,
+        dims=["gain_freq"],
+        attrs={
+          "type": "spectral_coord",
+          "units": "Hz",
+          "observer": "gcrs",
+        },
+      ),
+      "gain_nu1": xarray.DataArray(
+        nu1,
+        dims=["gain_freq"],
+        attrs={
+          "type": "spectral_coord",
+          "units": "Hz",
+          "observer": "gcrs",
+        },
+      ),
+    },
+    attrs={
+      "GAIN_AXES": ["direction", "antenna", "gain_time", "gain_freq", "correlation"],
+      "GAIN_SPEC": [[16], [28], [3600], [64], [4]],
+      "NAME": "G",
+      "VERSION": "0.0.1",
+      "TYPE": "complex",
+      "comment": "NenuFAR prototype gain",
+    },
   )
-  print(gains)
+
+  issues = check_dataset(gains, AntennaGains)

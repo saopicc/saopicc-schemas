@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.testing as npt
 import xarray
+from xradio.schema.check import check_dataset
 
 from saopicc_schemas import Gains
 
@@ -19,34 +20,41 @@ def test_gains_creation():
   conv_perc = np.full((4, 4), 5)
   gain_flags = np.random.choice([0, 1], (ntime, nfreq, nant, ndir))
 
-  gains = Gains.new(
-    conv_iter=conv_iter,
-    conv_perc=conv_perc,
-    time_chunk=np.arange(conv_iter.shape[0]),
-    freq_chunk=np.arange(conv_iter.shape[1]),
-    gain_flags=gain_flags,
-    antenna=antenna,
-    correlation=corrs,
-    direction=direction,
-    gain_time=xarray.DataArray(
-      time,
-      attrs={
-        "type": "time",
-        "units": "s",
-        "format": "unix",
-        "scale": "utc",
-        "integration_time": {
-          "attrs": {"type": "quantity", "units": "s"},
-          "data": 8.0,
+  gains = xarray.Dataset(
+    data_vars={
+      "conv_iter": (["time_chunk", "freq_chunk"], conv_iter),
+      "conv_perc": (["time_chunk", "freq_chunk"], conv_perc),
+      "gain_flags": (["gain_time", "gain_freq", "antenna", "direction"], gain_flags),
+    },
+    coords={
+      "antenna": ("antenna", antenna),
+      "correlation": ("correlation", corrs),
+      "direction": ("direction", direction),
+      "time_chunk": ("time_chunk", np.arange(conv_iter.shape[0])),
+      "freq_chunk": ("freq_chunk", np.arange(conv_iter.shape[1])),
+      "gain_time": xarray.DataArray(
+        time,
+        dims=["gain_time"],
+        attrs={
+          "type": "time",
+          "units": "s",
+          "format": "unix",
+          "scale": "utc",
+          "integration_time": {
+            "attrs": {"type": "quantity", "units": "s"},
+            "data": 8.0,
+          },
         },
-      },
-    ),
-    gain_freq=freqs,
-    GAIN_AXES=["gain_time", "gain_freq", "antenna", "direction", "correlation"],
-    GAIN_SPEC=[[115], [64], [28], [1], [4]],
-    NAME="G",
-    VERSION="0.0.1",
-    TYPE="complex",
+      ),
+      "gain_freq": ("gain_freq", freqs),
+    },
+    attrs={
+      "GAIN_AXES": ["gain_time", "gain_freq", "antenna", "direction", "correlation"],
+      "GAIN_SPEC": [[115], [64], [28], [1], [4]],
+      "NAME": "G",
+      "VERSION": "0.0.1",
+      "TYPE": "complex",
+    },
   )
 
   # Test some data variables
@@ -64,4 +72,5 @@ def test_gains_creation():
   assert gains.attrs["NAME"] == "G"
   assert "VERSION" in gains.attrs
 
-  print(gains)
+  issues = check_dataset(gains, Gains)
+  assert not issues

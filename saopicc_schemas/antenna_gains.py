@@ -1,8 +1,11 @@
-from dataclasses import dataclass
 from typing import List, Literal
 
 import numpy as np
-from xarray_dataclasses import AsDataset, Attr, Coord, Coordof, Data
+from xradio.schema.bases import (
+  xarray_dataarray_schema,
+  xarray_dataset_schema,
+)
+from xradio.schema.typing import Attr, Coord, Coordof, Data
 
 # Define our dimensions here
 Direction = Literal["direction"]
@@ -22,7 +25,7 @@ Comments = Literal["comments"]
 # Define time axes
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainTimeAxis:
   """Define the gain_time coordinate.
   This structure matches the MSv4 time coordinate axis
@@ -35,7 +38,7 @@ class GainTimeAxis:
   scale: Attr[str] = "utc"
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainT0Axis:
   """Define the gain_time coordinate.
   This structure matches the MSv4 time coordinate axis
@@ -48,7 +51,7 @@ class GainT0Axis:
   scale: Attr[str] = "utc"
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainT1Axis:
   """Define the gain_time coordinate.
   This structure matches the MSv4 time coordinate axis
@@ -64,7 +67,7 @@ class GainT1Axis:
 # Define frequency axes
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainFreqAxis:
   """Define the gain_freq coordinate.
   This structure matches the MSv4 frequency coordinate axis
@@ -76,7 +79,7 @@ class GainFreqAxis:
   observer: Attr[str] = "gcrs"
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainNu0Axis:
   """Define the gain_freq coordinate.
   This structure matches the MSv4 frequency coordinate axis
@@ -88,7 +91,7 @@ class GainNu0Axis:
   observer: Attr[str] = "gcrs"
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainNu1Axis:
   """Define the gain_freq coordinate.
   This structure matches the MSv4 frequency coordinate axis
@@ -100,13 +103,14 @@ class GainNu1Axis:
   observer: Attr[str] = "gcrs"
 
 
-@dataclass
-class AntennaGains(AsDataset):
+@xarray_dataset_schema
+class AntennaGains:
   # Data Variables
   gain_flags: Data[tuple[Direction, Antenna, GainTime, GainFreq], np.int8]
   gains: Data[tuple[Direction, Antenna, GainTime, GainFreq, Jones], np.complex64]
   # Coordinates
   antenna: Coord[Antenna, str]
+  jones: Coord[Jones, int]
   correlation: Coord[Correlation, str]
   direction: Coord[Direction, int]
   gain_time: Coordof[GainTimeAxis]
@@ -117,7 +121,7 @@ class AntennaGains(AsDataset):
   gain_nu1: Coordof[GainNu1Axis]
   # Attributes
   GAIN_AXES: Attr[List[str]]
-  GAIN_SPEC: Attr[List[List[int]]]
+  GAIN_SPEC: Attr[List[str]]
   NAME: Attr[str]
   TYPE: Attr[str]
   # comments field, empty by default

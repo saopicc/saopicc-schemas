@@ -1,8 +1,11 @@
-from dataclasses import dataclass
 from typing import List, Literal
 
 import numpy as np
-from xarray_dataclasses import AsDataset, Attr, Coord, Coordof, Data
+from xradio.schema.bases import (
+  xarray_dataarray_schema,
+  xarray_dataset_schema,
+)
+from xradio.schema.typing import Attr, Coord, Coordof, Data
 
 #
 Singleton = tuple[()]
@@ -17,7 +20,7 @@ TimeChunk = Literal["time_chunk"]
 FreqChunk = Literal["freq_chunk"]
 
 
-@dataclass
+@xarray_dataarray_schema
 class GainTimeAxis:
   """Define the gain_time coordinate.
   This structure matches the MSv4 time coordinate axis
@@ -30,8 +33,8 @@ class GainTimeAxis:
   scale: Attr[str] = "utc"
 
 
-@dataclass
-class Gains(AsDataset):
+@xarray_dataset_schema
+class Gains:
   # Data Variables
   conv_iter: Data[tuple[TimeChunk, FreqChunk], np.int64]
   conv_perc: Data[tuple[TimeChunk, FreqChunk], np.float64]
@@ -48,7 +51,7 @@ class Gains(AsDataset):
 
   # Attributes
   GAIN_AXES: Attr[List[str]]
-  GAIN_SPEC: Attr[List[List[int]]]
+  GAIN_SPEC: Attr[List[str]]
   NAME: Attr[str]
   TYPE: Attr[str]
 

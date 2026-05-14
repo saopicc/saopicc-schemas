@@ -11,7 +11,7 @@ def test_gains_creation():
   freqs = np.linspace(0.856e9, 2 * 0.856e9, 16)
   antenna = np.arange(28).astype(str)
   direction = np.arange(1)
-  corrs = np.array(["RR", "RL", "LR", "LL"])
+  pols = np.array(["RR", "RL", "LR", "LL"])
   ntime = len(time)
   nfreq = len(freqs)
   nant = len(antenna)
@@ -28,7 +28,7 @@ def test_gains_creation():
     },
     coords={
       "antenna": ("antenna", antenna),
-      "correlation": ("correlation", corrs),
+      "polarization": ("polarization", pols),
       "direction": ("direction", direction),
       "time_chunk": ("time_chunk", np.arange(conv_iter.shape[0])),
       "freq_chunk": ("freq_chunk", np.arange(conv_iter.shape[1])),

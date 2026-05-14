@@ -1,6 +1,7 @@
 from typing import List, Literal
 
 import numpy as np
+from xradio.measurement_set.schema import PolarizationArray
 from xradio.schema.bases import (
   xarray_dataarray_schema,
   xarray_dataset_schema,
@@ -12,7 +13,6 @@ Singleton = tuple[()]
 
 # Dimensions
 Antenna = Literal["antenna"]
-Correlation = Literal["correlation"]
 Direction = Literal["direction"]
 GainTime = Literal["gain_time"]
 GainFreq = Literal["gain_freq"]
@@ -42,7 +42,7 @@ class Gains:
 
   # Coordinates
   antenna: Coord[Antenna, str]
-  correlation: Coord[Correlation, str]
+  polarization: Coordof[PolarizationArray]
   direction: Coord[Direction, int]
   time_chunk: Coord[TimeChunk, int]
   freq_chunk: Coord[FreqChunk, int]

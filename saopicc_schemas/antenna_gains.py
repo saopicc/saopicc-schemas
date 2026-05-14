@@ -1,6 +1,7 @@
 from typing import List, Literal
 
 import numpy as np
+from xradio.measurement_set.schema import Polarization, PolarizationArray
 from xradio.schema.bases import (
   xarray_dataarray_schema,
   xarray_dataset_schema,
@@ -12,8 +13,6 @@ Direction = Literal["direction"]
 Antenna = Literal["antenna"]
 GainTime = Literal["gain_time"]
 GainFreq = Literal["gain_freq"]
-Correlation = Literal["correlation"]
-Jones = Literal["jones"]
 # Define properties for gain combinations
 Gain_T0 = Literal["gain_T0"]
 Gain_T1 = Literal["gain_T1"]
@@ -107,11 +106,10 @@ class GainNu1Axis:
 class AntennaGains:
   # Data Variables
   gain_flags: Data[tuple[Direction, Antenna, GainTime, GainFreq], np.int8]
-  gains: Data[tuple[Direction, Antenna, GainTime, GainFreq, Jones], np.complex64]
+  gains: Data[tuple[Direction, Antenna, GainTime, GainFreq, Polarization], np.complex64]
   # Coordinates
   antenna: Coord[Antenna, str]
-  jones: Coord[Jones, int]
-  correlation: Coord[Correlation, str]
+  polarization: Coordof[PolarizationArray]
   direction: Coord[Direction, int]
   gain_time: Coordof[GainTimeAxis]
   gain_t0: Coordof[GainT0Axis]

@@ -20,27 +20,26 @@ def test_gains_creation():
   antenna = np.arange(28).astype(str)
   direction = np.arange(16)
   # nenufar, ska-low etc have linear dipoles
-  corrs = np.array(["XX", "XY", "YX", "YY"])
-  ncorrs = len(corrs)
+  pols = np.array(["XX", "XY", "YX", "YY"])
+  npols = len(pols)
   ntime = len(time)
   nfreq = len(freqs)
   nant = len(antenna)
   ndir = len(direction)
   gain_flags = np.random.choice([0, 1], (ndir, nant, ntime, nfreq)).astype(np.int8)
-  gains_data = np.ones((ndir, nant, ntime, nfreq, ncorrs)).astype(np.complex64)
+  gains_data = np.ones((ndir, nant, ntime, nfreq, npols)).astype(np.complex64)
 
   gains = xarray.Dataset(
     data_vars={
       "gain_flags": (["direction", "antenna", "gain_time", "gain_freq"], gain_flags),
       "gains": (
-        ["direction", "antenna", "gain_time", "gain_freq", "jones"],
+        ["direction", "antenna", "gain_time", "gain_freq", "polarization"],
         gains_data,
       ),
     },
     coords={
       "antenna": ("antenna", antenna),
-      "jones": ("jones", np.arange(ncorrs)),
-      "correlation": ("correlation", corrs),
+      "polarization": ("polarization", pols),
       "direction": ("direction", direction),
       "gain_time": xarray.DataArray(
         time,

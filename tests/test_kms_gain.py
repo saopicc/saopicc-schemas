@@ -1,10 +1,14 @@
 import numpy as np
+import pytest
 import xarray
 from xradio.schema.check import check_dataset
 
 from saopicc_schemas.antenna_gains import AntennaGains
 
 
+@pytest.mark.filterwarnings(
+  "ignore:Could not import the function to convert from MSv2 to MSv4:UserWarning",
+)
 def test_gains_creation():
   # times are defined approximately based on nenufar dataset
   # 8s dt, 8h observation

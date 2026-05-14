@@ -1,12 +1,16 @@
 import numpy as np
 import numpy.testing as npt
+import pytest
 import xarray
 from xradio.schema.check import check_dataset
 
-from saopicc_schemas import Gains
 
-
+@pytest.mark.filterwarnings(
+  "ignore:Could not import the function to convert from MSv2 to MSv4:UserWarning",
+)
 def test_gains_creation():
+  from saopicc_schemas import Gains
+
   time = np.linspace(1.0, 2.0, 10)
   freqs = np.linspace(0.856e9, 2 * 0.856e9, 16)
   antenna = np.arange(28).astype(str)
